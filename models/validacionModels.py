@@ -1,7 +1,6 @@
 from fileinput import close
-from string import punctuation
-from flask import Flask, render_template, request,redirect, url_for, flash
-from werkzeug.security import generate_password_hash,check_password_hash
+import re
+from flask import flash
 from config.database import db
 
 
@@ -19,36 +18,40 @@ def crearUser(nombre,correo,password):
     cursor.close()
     
 
-""" def validar_password(nombre,correo,password):
+def validate_password(password):
+    """J3$u$diaz"""
+    upperCase = False
+    lowerCase= False
+    numbers = False
+    specialCharacter = False
     
-    isValid=True
-    if nombre == "":
-        isValid= False
-        flash("El nombre es obligatorio")
-    if correo =="":
-        isValid=False
-        flash("El correo es obligatorio")
-    if password=="":
-        isValid=False
-        flash("La contraseña es obligatorio")
-    if len(password)<8:
-        if any([c.isdigit() for c in password]):
-            if any([c.islower() for c in password]):
-                if any([c.isupper() for c in password]):
-                    if any([True if c in punctuation else False for c in password]):
-                        flash("contraseña establecida correctamente")
-                        return True
-                    else:
-                        flash("debe tener un caracter especial")
-                else:
-                    flash("debe tener una mayuscula")
-            else:
-                flash("debe tener una minuscula")
-        else:
-            flash("debe tener un numero")
-    else:
-        flash("la contraseña bebe tener 8 caracteres")
+    for c in password:
+        if c.islower()== True:
+            lowerCase= True
+        if c.isupper()== True:
+            upperCase= True
+        if c.isdigit()==True:
+            numbers= True 
+    
+    if lowerCase == False:
+        flash("Ingrese al menos una Minuscula a la contraseña")
+    if upperCase == False:
+        flash("Ingrese al menos una Mayusculas a la contraseña")
+    if numbers == False:
+        flash("Ingrese al menos un Número a la contraseña")
+    
+    if re.search('[@_!#$%^&*()<>?/\|}{~:]',password):                        
+        specialCharacter= True
+    if specialCharacter == False:
+        flash("Ingrese al menos un caracter a la contraseña")
         
-    crearUser(nombre=nombre,correo=correo,password=encriptePassword) 
-    return render_template("crearUser.html",nombre=nombre, correo=correo, password=password) """
-    
+    """ crearUser(nombre=nombre,correo=correo,password=passwordEncrypted) """
+    return 
+""" validate_password(nombre,correo,password) """
+
+def vaUser(self,usuario):
+    cursor=db.cursor()
+    cursor.execute('SELECT correo,password FROM usuario WHERE usuario.correo=%s,'(usuario))
+    data= cursor.fetchall()
+    cursor= close()
+    return data
