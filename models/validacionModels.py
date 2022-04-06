@@ -39,7 +39,6 @@ def validate_password(password):
         flash("Ingrese al menos una Mayusculas a la contraseña")
     if numbers == False:
         flash("Ingrese al menos un Número a la contraseña")
-    
     if re.search('[@_!#$%^&*()<>?/\|}{~:]',password):                        
         specialCharacter= True
     if specialCharacter == False:
@@ -48,10 +47,3 @@ def validate_password(password):
     """ crearUser(nombre=nombre,correo=correo,password=passwordEncrypted) """
     return 
 """ validate_password(nombre,correo,password) """
-
-def vaUser(self,usuario):
-    cursor=db.cursor()
-    cursor.execute('SELECT correo,password FROM usuario WHERE usuario.correo=%s,'(usuario))
-    data= cursor.fetchall()
-    cursor= close()
-    return data
