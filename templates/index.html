@@ -1,7 +1,50 @@
-{%extends 'base.html'%}
+
+{% extends "base.html" %}
+
 {%block titulo%}
-    tablero
-{%endblock%}
+    Inicio
+{% endblock %}
+
+
+{% block navbar%}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/"> <B>LOGO EMPRESA</B> </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              </li>
+              
+            </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" href="/crear">Registrarse </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link active" href="/login">Iniciar sesión </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    {%endblock%}
+
+
 {%block contenido%}
-<h1>esto es un temlplate</h1>
-{%endblock%}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2> Página Principal </h2>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+

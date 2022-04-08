@@ -1,10 +1,12 @@
-from email.mime import image
+from email import message
 from flask import Flask, render_template,request,redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from config.database import db
-from models import validacionModels
-from models.validacionModels import UsuarioModel, obtenerUser
 
+from models.modelUser import UsuarioModel
+from models import userLogueo
+from models import validacionModels
+from models import loginUser
 
 
 app = Flask(__name__)
@@ -14,43 +16,34 @@ app.secret_key='asdjkajsdfjerybbca5445asdfafeyrfa'
 
 @app.get("/")
 def index():
-    return redirect(url_for('loginUser'))
+    return render_template("index.html")
     
 @app.route("/login", methods=['GET','POST'])
 def loginUser():
-    """ usuarioModel = UsuarioModel() """
-    if request.method == "GET":
-        return render_template("login.html")
-    else:
-        usuario = request.form['email']
-        password = request.form['password']
-        paswordCheck=generate_password_hash(password)
-        user= obtenerUser(usuario)
-    
-        for datosss in user:
-            print(datosss['password'])
-            break
-        """ user = cursor.execute('select correo, password from usuario where usuario.correo = %s',(usuario,)) """ 
-        """ result = validardateuser(user,paswordCheck) """
-        if user is not None and user==True:
-            print("Welcome")
-            session['username'] = usuario
-            return redirect(url_for("viewuser"))
-        else:
-            flash("Correo / Password incorrect")
-            return redirect(url_for("loginUser"))
-            
-def validardateuser(users,password):
-    for user in users:
-        return check_password_hash(user[3],password)
+    if request.method=='POST':
+        email = request.form['email']
+        clave = request.form['password']
+        autenticado = userLogueo.userLogin(email,clave)  
 
-@app.get('/')
-def viewUser():
-    return "esto es una pagina"
+        if autenticado == True:
+            session['loggedin'] = True
+            print(session)
+            return redirect("/vista")
+        else:
+                
+            flash(" Datos incorrectos")
+            return redirect("/login")
+
+
+    return render_template("/loginUser/login.html")
+        
+
+
+
 
 @app.get("/crear")
 def creaUsuario():
-    return render_template("crearUser.html")
+    return render_template("/loginUser/crearUser.html")
 
 @app.get("/imagn")
 def crearImagen():
@@ -87,8 +80,7 @@ def creaUsuarioPost():
     
     if password =="" or password != None:
         isValid=False
-        validacionModels.validate_password(password)
-        flash("La contraseña es obligatorio")
+        flash("Tenga en cuenta lo siguiente: ")
     
     if 8 > len(password) :                       
         flash("La contraseña debe tener minimo 8 caracteres")  
@@ -97,9 +89,19 @@ def creaUsuarioPost():
     
     if isValid == False:
         """ print(nombre,correo,password) """
-        return render_template("crearUser.html",nombre=nombre,correo=correo)
+        return render_template("/loginUser/crearUser.html",nombre=nombre,correo=correo)
     
     validacionModels.crearUser(nombre=nombre,correo=correo,password=passwordEncrypted)
+    return redirect(url_for('loginUser'))
+
+
+@app.get("/vista")
+def vistaUsuario():
+    return render_template("/vistaUser/viewUser.html")
+
+@app.route("/logout")
+def logout():
+    session.pop('loggedin', None)
     return redirect(url_for('loginUser'))
 
 

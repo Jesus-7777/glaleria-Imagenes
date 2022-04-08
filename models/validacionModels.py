@@ -61,15 +61,15 @@ def validate_password(password):
             numbers= True 
     
     if lowerCase == False:
-        flash("Ingrese al menos una Minuscula a la contraseña")
+        flash("Una letra Minuscula.")
     if upperCase == False:
-        flash("Ingrese al menos una Mayusculas a la contraseña")
+        flash("Una letra Mayusculas.")
     if numbers == False:
-        flash("Ingrese al menos un Número a la contraseña")
+        flash("Un Número entre 0 - 9")
     if re.search('[@_!#$%^&*()<>?/\|}{~:]',password):                        
         specialCharacter= True
     if specialCharacter == False:
-        flash("Ingrese al menos un caracter a la contraseña")
+        flash("Un caracter de simbolos")
         
     """ crearUser(nombre=nombre,correo=correo,password=passwordEncrypted) """
     return 
