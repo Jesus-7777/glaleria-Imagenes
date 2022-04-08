@@ -12,8 +12,6 @@ from models import loginUser
 app = Flask(__name__)
 app.secret_key='asdjkajsdfjerybbca5445asdfafeyrfa'
 
-
-
 @app.get("/")
 def index():
     return render_template("index.html")
@@ -31,9 +29,9 @@ def loginUser():
             return redirect("/vista")
         else:
                 
-            flash(" Datos incorrectos")
+            flash("Datos Erroneos. Confirme usuario y contraseña.")
+            flash("Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.")
             return redirect("/login")
-
 
     return render_template("/loginUser/login.html")
         
@@ -44,17 +42,6 @@ def loginUser():
 @app.get("/crear")
 def creaUsuario():
     return render_template("/loginUser/crearUser.html")
-
-@app.get("/imagn")
-def crearImagen():
-    return render_template("/templates/imageloader/fromimage.html")
-
-@app.post("/imagen")
-def crearImagenPost():
-    imagen= request.files['imagen']
-    """ print(imagen.filename)
-    imagen.save('./static/image/'+imagen.filename) """
-    return render_template("/templates/imageloader/fromimage.html")
 
 @app.post("/crear")
 def creaUsuarioPost():
@@ -78,9 +65,9 @@ def creaUsuarioPost():
         flash("El correo es obligatorio")
         """ print("El correo es obligatorio") """
     
-    if password =="" or password != None:
+    if password =="":
         isValid=False
-        flash("Tenga en cuenta lo siguiente: ")
+        flash("Los datos son incorrectos ")
     
     if 8 > len(password) :                       
         flash("La contraseña debe tener minimo 8 caracteres")  
