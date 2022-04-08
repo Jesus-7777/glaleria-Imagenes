@@ -4,6 +4,7 @@
 {%endblock%}
 
 {%block contenido%}
+
 <!-- Aqui se agrega el formulario de login -->
     <section class="h-100">
         <div class="container h-100">
@@ -44,6 +45,15 @@
                                         Login
                                     </button>
                                 </div>
+                                <div class="mt-3">{%with messages = get_flashed_messages()%}
+                                    {%if messages%}
+                                        <ul class="alert alert-danger">
+                                            {%for message in messages%}
+                                                <li>{{message}}</li>
+                                            {%endfor%}
+                                        </ul>
+                                    {%endif%}
+                                {%endwith%}</div>
                             </form>
                         </div>
                         <div class="card-footer py-3 border-0">
