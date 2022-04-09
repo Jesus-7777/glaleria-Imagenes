@@ -1,20 +1,20 @@
-from dataclasses import dataclass
 from fileinput import close
-import json
+from re import U
 from tkinter.messagebox import NO
+from sqlalchemy import true
 from werkzeug.security import check_password_hash,generate_password_hash
-import re
 from flask import flash
 from config.database import db
 
 cursor=db.cursor(dictionary=True)
-class UsuarioModel():
-    def validarUser(self,usuario):
-        cursor =db.cursor()
-        cursor.execute('select correo, password from usuario where usuario.correo = %s',(usuario,))      
-        userdata= cursor.fetchall()
-        cursor.close()
-        return userdata
+def correoExis(correo):
+    cursor =db.cursor()
+    cursor.execute('SELECT correo FROM usuario WHERE correo= %s',(correo,))   
+    useremail = cursor.fetchall()
+    print(useremail)
+    cursor.close()
+    return False
+
 
 def obtenerUser(usuario):
     cursor=db.cursor(dictionary=True)
@@ -34,7 +34,6 @@ def usuarioExit(correo,password):
         passwordChek=generate_password_hash(password)
         cursor.execute('SELECT * FROM usuarios WHERE usuario = ? AND clave = ?', (correo, passwordChek))
         dataBases = cursor.fetchone()
-        
         if dataBases!=None:
             for data in dataBases:
                 """ check_password_hash(data[3],passwordChek) """
@@ -44,33 +43,3 @@ def usuarioExit(correo,password):
             
         print("Query Excecuted successfully")
             
-
-def validate_password(password):
-    """J3$u$diaz"""
-    upperCase = False
-    lowerCase= False
-    numbers = False
-    specialCharacter = False
-    
-    for c in password:
-        if c.islower()== True:
-            lowerCase= True
-        if c.isupper()== True:
-            upperCase= True
-        if c.isdigit()==True:
-            numbers= True 
-    
-    if lowerCase == False:
-        flash("Una letra Minuscula.")
-    if upperCase == False:
-        flash("Una letra Mayusculas.")
-    if numbers == False:
-        flash("Un Número entre 0 - 9")
-    if re.search('[@_!#$%^&*()<>?/\|}{~:]',password):                        
-        specialCharacter= True
-    if specialCharacter == False:
-        flash("Un caracter de simbolos")
-        
-    """ crearUser(nombre=nombre,correo=correo,password=passwordEncrypted) """
-    return 
-""" validate_password(nombre,correo,password) """
