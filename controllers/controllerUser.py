@@ -1,4 +1,3 @@
-from inspect import trace
 from flask import flash
 from sqlalchemy import false
 from werkzeug.security import generate_password_hash
@@ -10,7 +9,7 @@ def crearProductocontroller(nombre,correo,password):
         passwordEncrypted=generate_password_hash(password)
         isValid=False
         validaPass=Authentication(password)
-        """  repitemail=validacionModels.correoExis(correo) """
+        repitemail=validacionModels.correoExis(correo)
         if nombre == "":
             isValid= False
             flash("El nombre es obligatorio")
@@ -28,17 +27,16 @@ def crearProductocontroller(nombre,correo,password):
         else:
             isValid=True
             
-        """ if repitemail == None:
+        if repitemail:
             flash('existe el correo')
             print('existe....')
-            isValid=False """
-            
-            
+            isValid=False
             
         if isValid ==False:
             return False
         
         validacionModels.crearUser(nombre=nombre,correo=correo,password=passwordEncrypted)
+        
         return True   
 
 class Authentication(object):
