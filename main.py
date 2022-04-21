@@ -1,16 +1,11 @@
-from cgi import print_environ
 from flask import Flask, render_template,request,redirect, url_for, flash, session
 from models import userLogueo
 from controllers import controllerUser
 from models import validacionModels
-from models import loginUser
-
 
 
 app = Flask(__name__)
 app.secret_key='asdjkajsdfjerybbca5445asdfafeyrfa'
-
-
 
 def estaIniciado():
     return True if 'loggedin' in session else False
@@ -18,6 +13,28 @@ def estaIniciado():
 @app.get("/")
 def index():
     return render_template("index.html")
+
+@app.get("/senReset")
+def viewreset():
+    return render_template("/resetPass/emailUserPass.html")
+
+@app.route("/senReset", methods=['GET','POST'])
+def sendresetPost():
+    correo = request.form.get('correo')
+    validacionModels.isertToken(correo)
+    
+    """ return render_template("/resetPass/emailUserPass.html",correo=correo) """
+    return redirect(url_for('viewMessge'))
+
+@app.route("/reset/<token>")
+def reset(token):
+    print(token)
+    return render_template("/resetPass/resetPassword.html")
+
+@app.route("/senReset", methods=['GET','POST'])
+def resetPost():
+    print("estamos restableciendo contraseña")
+    
 
 @app.get("/messageEmail")
 def viewMessge():
@@ -54,8 +71,7 @@ def creaUsuarioPost():
 @app.route("/valida_email/<token>")
 def validar_email(token):
     if validacionModels.verificarToken(token):
-        
-        return "se esta validando el anincio"
+        return "se valido el email"
 
 @app.get("/vista")
 def vistaUsuario():

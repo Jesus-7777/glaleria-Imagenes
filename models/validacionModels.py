@@ -8,6 +8,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from models.loginUser import userLogin
 
 s=URLSafeTimedSerializer('Secreto78SDDNCJSHadqwrweczc')
+sK=URLSafeTimedSerializer('kdfjlahdjknvaksjdbvfgdgagfgddgfdafag64fg6asd4f56as4d6f54s65df4ga')
 
 import threading
 
@@ -54,3 +55,11 @@ def crearUser(nombre,correo,password):
                                 target=send_email(nombre,correo),
                                 args=(nombre,correo))
     sender.start()
+
+def isertToken(correo):
+    tokenPass=sK.dumps(correo)
+    cursor=db.cursor()
+    cursor.execute("UPDATE usuario SET token=%s WHERE correo=%s",(tokenPass,correo))
+    cursor.close()
+    validacionEmail.sendPassReset(correo,tokenPass)
+    return True
