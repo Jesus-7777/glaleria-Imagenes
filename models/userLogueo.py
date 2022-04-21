@@ -12,7 +12,9 @@ def userLogin(email,clave):
         cursor.execute("SELECT * FROM usuario where correo = '"+email+"'")
         datos = cursor.fetchone()
         contravalid = check_password_hash(datos[3],clave)
-        
+        print(contravalid)
+        print(datos[3])
+
         if contravalid: 
             print('Enviado Correctamente')
             

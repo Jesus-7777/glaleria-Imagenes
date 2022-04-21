@@ -27,10 +27,9 @@ def loginUser():
             session['loggedin'] = True
             print(session)
             return redirect("/vista")
-        else:
-                
-            flash("Datos Erroneos. Confirme usuario y contraseña.")
-            flash("Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.")
+        else: 
+            flash("Datos Erroneos. Confirme usuario y contraseña. Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.")
+            
             return redirect("/login")
 
     return render_template("/loginUser/login.html")

@@ -7,7 +7,7 @@ from models import validacionEmail
 
 def obtenerUser():
     cursor=db.cursor(dictionary=True)
-    cursor.execute('select * from usua')
+    cursor.execute('select * from usuario')
     productos= cursor.fetchall()
     cursor= close()
     return productos
