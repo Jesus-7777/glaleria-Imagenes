@@ -22,6 +22,9 @@
         <ul class="navbar-nav mb-2 mb-lg-0">
           
           <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('subirArchivoPost')}}"> Subir un archivo </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="{{url_for('logout')}}">Cerrar sesión </a>
           </li>
         </ul>
@@ -39,22 +42,25 @@
     
         <table class="table">
             <thead>
-                <tr>
-                    <th scope="row"></th>
-                    <th>ID</th>
-                    <th>NOMBRE</th>
-                    <th>CORREO</th>
-                </tr>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>IMAGEN</th>
+              </tr>
             </thead>
             <tbody>
-                {%for producto in productos%}
-                    <tr>
-                        <td scope="row"></td>
-                        <td>{{producto['id']}}</td>
-                        <td>{{producto['nombre']}}</td>
-                        <td>{{producto['correo']}}</td>
-                    </tr>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto['id'] }}</td>
+                    <td>{{ producto['nombre'] }}</td>
+                    <td>
+                        {% if producto['imagen']: %}
+                            <img src="{{ producto['imagen'] }}">
+                        {% endif %}
+                    </td>
+                </tr>
                 {% endfor %}
+            
             </tbody>
         </table> 
 {%endblock%}

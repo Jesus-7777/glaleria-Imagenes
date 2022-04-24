@@ -3,6 +3,7 @@ from sqlalchemy import false
 from werkzeug.security import generate_password_hash
 import re
 from models import validacionModels
+from models import modelProduc
 
 
 def crearProductocontroller(nombre,correo,password):
@@ -12,15 +13,15 @@ def crearProductocontroller(nombre,correo,password):
         repitemail=validacionModels.correoExis(correo)
         if nombre == "":
             isValid= False
-            flash("El nombre es obligatorio")
+            flash("El nombre es obligatorio","error")
         
         if correo =="":
             isValid=False
-            flash("El correo es obligatorio")
+            flash("El correo es obligatorio","error")
         
         if password =="":
             isValid=False
-            flash("Tenga en cuenta lo siguiente: ")
+            flash("Tenga en cuenta lo siguiente: la contraseña es obligatoria","error")
         
         if not (validaPass.validate()):
             isValid =False
@@ -28,7 +29,7 @@ def crearProductocontroller(nombre,correo,password):
             isValid=True
             
         if repitemail:
-            flash('existe el correo')
+            flash('existe el correo',"error")
             print('existe....')
             isValid=False
             
@@ -69,24 +70,29 @@ class Authentication(object):
             return True
 
         elif not lower:
-            flash("Nousaste Minusculas")
+            flash("No usaste Minusculas","error")
             return False
 
         elif not upper:
-            flash("Nousaste Mayusculas")
+            flash("No usaste Mayusculas","error")
             return False
 
         elif length <8:
-            flash("La contraseña debe tener 8 caracteres")
+            flash("La contraseña debe tener 8 caracteres","error")
             return False
 
         elif not digit:
-            flash("No usaste digito")
+            flash("No usaste digito","error")
             return False
         
         elif not character:
-            flash("No usaste caracteres")
+            flash("No usaste caracteres","error")
             return False
         else:
             pass
-        
+
+def subir(nombre,imagen):
+    imagen.save('./static/image/' + imagen.filename)
+    modelProduc.crearProducto(nombre=nombre,
+                    imagen='/static/image/' + imagen.filename)
+    return True

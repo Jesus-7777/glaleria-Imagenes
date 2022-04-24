@@ -48,7 +48,7 @@
                             <form  class="needs-validation" action="{{url_for('loginUser')}}" method="POST" autocomplete="off">
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email" >E-mail <small class="text-danger">*</small></label>
-                                    <input id="email" type="email" class="form-control border border-dark" name="email"  required autofocus required placeholder="alguien@example.com" value="duvan@gmail.com" >
+                                    <input id="email" type="email" class="form-control border border-dark" name="email"  required autofocus required placeholder="alguien@example.com" >
                                     <div class="invalid-feedback">
                                         Email is invalid
                                     </div>
@@ -58,7 +58,7 @@
                                         <label class="text-muted" for="password">Password <small class="text-danger">*</small></label>
                                         
                                     </div>
-                                    <input id="password" type="password" class="form-control border border-dark" name="password" required placeholder="M4r1@gon" value="Duvan-102030">
+                                    <input id="password" type="password" class="form-control border border-dark" name="password" required placeholder="M4r1@gon">
                                     <div class="invalid-feedback">
                                         Password is required
                                     </div>
@@ -81,7 +81,7 @@
                                 
                                 <p>
                                     <!-- Alert de clave incorrecta -->
-                                    {%with messages = get_flashed_messages()%}
+                                    <!-- {%with messages = get_flashed_messages()%}
                                     {%if messages%}
                                         <ul class="alert alert-danger">
                                             {%for message in messages%}
@@ -89,7 +89,25 @@
                                             {%endfor%}
                                         </ul>
                                     {%endif%}
-                                    {%endwith%}
+                                    {%endwith%} -->
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                            <ul class=flashes>
+                                            {% for category, message in messages %}
+                                                {%if category=="exito"%}
+                                                    <div class="alert alert-success" role="alert">
+                                                        <div class="{{ category }}">{{ message }}</div>
+                                                    </div>
+                                                {%endif%}
+                                                {%if category=="error"%}
+                                                <div class="alert alert-danger {{ category }}">
+                                                    {{ message }}
+                                                </div>
+                                                {%endif%}
+                                            {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    {% endwith %}
                                 </p>
 
 
