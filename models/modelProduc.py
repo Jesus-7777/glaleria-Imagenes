@@ -1,4 +1,5 @@
 from config.database import db
+from flask import Flask, render_template
 
 def crearProducto(nombre, imagen):
     cursor = db.cursor()
@@ -8,10 +9,10 @@ def crearProducto(nombre, imagen):
     ))
     cursor.close()
     
-def misProductos():
+def misProductos(idUser):
     cursor = db.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM producto')
+    cursor.execute('SELECT imagenes, usuario.nombre FROM producto, usuario WHERE idUsuario=%s',(idUser))
     productos = cursor.fetchall()
-    #producto = cursor.fetchone()
     cursor.close()
+    print(productos)
     return productos

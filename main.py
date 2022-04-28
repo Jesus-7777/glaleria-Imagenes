@@ -24,7 +24,7 @@ def viewreset():
 def sendresetPost():
     correo = request.form.get('correo')
     validacionModels.isertToken(correo)
-    flash("Se eviara a tu correo las instrucciones de cambio de contraseña 🔏","exito")
+    flash("Se enviara a tu correo las instrucciones de cambio de contraseña 🔏","exito")
     return redirect(url_for('viewreset'))
 
 @app.route("/reset/<token>")
@@ -76,9 +76,8 @@ def creaUsuarioPost():
     if not controllerUser.crearProductocontroller(nombre,correo,password):
         flash("Ingrese los valores correctos","error")
         return render_template("/loginUser/crearUser.html",nombre=nombre,correo=correo)
-    
     #return redirect(url_for('viewMessge'))
-    flash("se envara un correo de confirmacion al correo con el que te registraste 👍","exito")
+    flash("se enviara un correo de confirmacion al correo con el que te registraste 👍","exito")
     return redirect(url_for('loginUser'))
 
 @app.get("/subir")
@@ -90,9 +89,7 @@ def mostrarArchivo():
 @app.route("/subir", methods=['GET','POST'] )
 def subirArchivoPost():
     nombre = request.form['nombre']
-    print(nombre)
     imagen = request.files['image']
-    print(imagen)
     if controllerUser.subir(nombre,imagen):
         flash("El archivo se agrego correctamente ✅","exito")
     return render_template("/productos/crearArchivo.html")
@@ -109,8 +106,8 @@ def validar_email(token):
 def vistaUsuario():
     if not estaIniciado():
         return redirect(url_for('loginUser'))
-    productos = modelProduc.misProductos()
-    return render_template("/vistaUser/viewUser.html",productos=productos)
+    #productos = modelProduc.misProductos(),productos=productos
+    return render_template("/vistaUser/viewUser.html")
 
 @app.route("/logout")
 def logout():

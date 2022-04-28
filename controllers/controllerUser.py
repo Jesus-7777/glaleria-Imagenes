@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash
 import re
 from models import validacionModels
 from models import modelProduc
+from models import userLogueo
 
 
 def crearProductocontroller(nombre,correo,password):
@@ -93,6 +94,13 @@ class Authentication(object):
 
 def subir(nombre,imagen):
     imagen.save('./static/image/' + imagen.filename)
+    
     modelProduc.crearProducto(nombre=nombre,
                     imagen='/static/image/' + imagen.filename)
     return True
+
+def pasarUser(correo):
+    datoName=userLogueo.userName(correo)
+    print(datoName)
+    #modelProduc.misProductos(datoName)
+    return
