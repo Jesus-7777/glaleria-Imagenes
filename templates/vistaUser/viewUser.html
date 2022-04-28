@@ -39,7 +39,7 @@
 
 
 {%block contenido%}
-<br><h1><center>Mi espacio </center> </h1><br><br>
+<br><h1><center>Mis imagenes </center> </h1><br><br>
  
     <!-- <h3>
        Carga ahora tus archivos, solo debes dar clic aqui abajo!
@@ -49,29 +49,31 @@
       
     <input type="submit" value="Subir" /><br><br> -->
 
-        <!-- <table class="table">
+         <table class="table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>NOMBRE</th>
                 <th>IMAGEN</th>
+                <th>EDITAR</th>
               </tr>
             </thead>
             <tbody>
-                {% for producto in productos %}
+                {% for producto in imagen %}
                 <tr>
-                    <td>{{ producto['id'] }}</td>
-                    <td>{{ producto['nombre'] }}</td>
+                    <td>{{ producto[0] }}</td>
+                    <td>{{ producto[7] }}</td>
                     <td>
-                        {% if producto['imagen']: %}
-                            <img src="{{ producto['imagen'] }}">
-                        {% endif %}
+                      <img style="width: 5%" src="{{ producto[8] }}">
+                        
                     </td>
+                    <td>{{ producto[7] }}</td>
                 </tr>
                 {% endfor %}
             
             </tbody>
         </table> 
+
                 <!-- Gallery -->
                 <div class="row">
                   <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
