@@ -1,25 +1,33 @@
-from unicodedata import name
+from fileinput import close
 from flask import flash
+from requests import session
 from config.database import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import modelProduc
+from controllers import controllerUser
 
 
 def userLogin(email,clave):
     try:
-        print(clave)
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM usuario where correo = '"+email+"'")
-        datos = cursor.fetchone()
-        contravalid = check_password_hash(datos[3],clave)
-        if contravalid: 
-            print('Enviado Correctamente')
-            base=datos[0]
-            """ imagebase=modelProduc.misProductos(base)
-            print(imagebase) """
-        else:
-            print('Error No se envio')
-        return contravalid
+        cursor=db.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM usuario where correo = %s",(email,))
+        datos = cursor.fetchall()
+        cursor= close()
+        if datos != None:
+            for dato in datos:
+                print(dato["id"])
+                print(dato["correo"])
+                contravalid = check_password_hash(dato[3],clave)
+                print(contravalid)
+                print(clave)
+                if contravalid: 
+                    print('Enviado Correctamente')
+                    """ base=datos[0]
+                    session['id_nombre']=base """
+                    #controllerUser.pasarUser(base)
+                    #return contravalid
+                else:
+                    print('Error No se envio')
+                return contravalid
     except Exception as ex:
         print(ex)
         

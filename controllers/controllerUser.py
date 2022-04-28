@@ -99,8 +99,8 @@ def subir(nombre,imagen):
                     imagen='/static/image/' + imagen.filename)
     return True
 
-def pasarUser(correo):
-    datoName=userLogueo.userName(correo)
-    print(datoName)
-    #modelProduc.misProductos(datoName)
+def pasarUser(iduser):
+    #datoName=userLogueo.userName(correo)
+    print(int(iduser))
+    modelProduc.misProductos(int(iduser))
     return

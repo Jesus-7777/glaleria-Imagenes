@@ -33,6 +33,7 @@ def verificarToken(token):
     token_user= cursor.fetchall()
     if token_user != None:
         for userToken in token_user:
+            print(userToken)
             tokenDato=userToken["token"]
             cursor.execute('UPDATE usuario SET estado="activo", token=NULL WHERE token= %s',(tokenDato,))
             cursor= close()

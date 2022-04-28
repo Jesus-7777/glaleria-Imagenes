@@ -54,6 +54,7 @@ def loginUser():
     if request.method=='POST':
         email = request.form['email']
         clave = request.form['password']
+        print(clave)
         autenticado = userLogueo.userLogin(email,clave)  
         if autenticado == True:
             session['loggedin'] = True
