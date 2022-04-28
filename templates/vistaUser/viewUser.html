@@ -33,44 +33,56 @@
   </nav>
 
 
+
 {%endblock navbar%}
 
 
 
 {%block contenido%}
-<h1>Mi espacio </h1>
-    
-        <table class="table">
+<br><h1><center>Mis imagenes </center> </h1><br><br>
+ 
+    <!-- <h3>
+       Carga ahora tus archivos, solo debes dar clic aqui abajo!
+    </h3><br>
+      
+    <input type="file" id="myFile" /> <br /><br />
+      
+    <input type="submit" value="Subir" /><br><br> -->
+
+         <table class="table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>NOMBRE</th>
                 <th>IMAGEN</th>
+                <th>EDITAR</th>
               </tr>
             </thead>
             <tbody>
-              {% for producto in productos %}
-              <tr>
-                  <td>{{ producto[1]}}</td>
-                  
-                  <td>
-                    {% if producto[0]: %}
-                          <img src=".{{ producto[0] }}">
-                          {% endif %}
-                        </td>
-                      </tr>
-                    <!--  Gallery 
-                      <div class="row">
-                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                          <img
-                            src="{{ producto[2] }}"
-                            class="w-100 shadow-1-strong rounded mb-4"
-                            alt="Boat on Calm Water"
-                          />
-                        </div>
-                      </div>
-                      Gallery --> 
-              {% endfor %}
+                {% for producto in imagen %}
+                <tr>
+                    <td>{{ producto[0] }}</td>
+                    <td>{{ producto[7] }}</td>
+                    <td>
+                      <img style="width: 5%" src="{{ producto[8] }}">
+                        
+                    </td>
+                    <td>{{ producto[7] }}</td>
+                </tr>
+                {% endfor %}
+            
             </tbody>
         </table> 
+
+                <!-- Gallery -->
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                    <img
+                      src=""
+                      class="w-100 shadow-1-strong rounded mb-4"
+                      alt="Boat on Calm Water"
+                    />
+                  </div>
+                </div>
+                <!-- Gallery -->
 {%endblock%}

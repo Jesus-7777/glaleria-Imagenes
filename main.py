@@ -1,9 +1,10 @@
 from pyexpat import model
 from flask import Flask, render_template,request,redirect, url_for, flash, session
 from models import userLogueo
-from controllers import controllerUser
+from controllers import controllerUser,mostrarImagenController
 from models import validacionModels
 from models import modelProduc
+
 
 
 app = Flask(__name__)
@@ -58,6 +59,7 @@ def loginUser():
         autenticado = userLogueo.userLogin(email,clave)  
         if autenticado == True:
             session['loggedin'] = True
+            session['email']=email
             return redirect("/vista")
         else:
             flash("Datos Erroneos. Confirme usuario y contraseña. Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.","error")
@@ -107,10 +109,10 @@ def validar_email(token):
 def vistaUsuario():
     if not estaIniciado():
         return redirect(url_for('loginUser'))
-    uno = 1
-    productos = modelProduc.misProductos(uno)
-    print(productos)
-    return render_template("/vistaUser/viewUser.html",productos=productos)
+    else: 
+        imagen = mostrarImagenController.mostrarImgen()
+        #productos = modelProduc.misProductos(),productos=productos
+        return render_template("/vistaUser/viewUser.html",imagen=imagen)
 
 @app.route("/logout")
 def logout():
