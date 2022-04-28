@@ -1,42 +1,59 @@
-from email import message
 from flask import Flask, render_template,request,redirect, url_for, flash, session
-from werkzeug.security import generate_password_hash, check_password_hash
-from config.database import db
-
-from models.modelUser import UsuarioModel
 from models import userLogueo
+from controllers import controllerUser
 from models import validacionModels
-from models import loginUser
 
 
 app = Flask(__name__)
 app.secret_key='asdjkajsdfjerybbca5445asdfafeyrfa'
 
+def estaIniciado():
+    return True if 'loggedin' in session else False
+
 @app.get("/")
 def index():
     return render_template("index.html")
+
+@app.get("/senReset")
+def viewreset():
+    return render_template("/resetPass/emailUserPass.html")
+
+@app.route("/senReset", methods=['GET','POST'])
+def sendresetPost():
+    correo = request.form.get('correo')
+    validacionModels.isertToken(correo)
     
+    """ return render_template("/resetPass/emailUserPass.html",correo=correo) """
+    return redirect(url_for('viewMessge'))
+
+@app.route("/reset/<token>")
+def reset(token):
+    print(token)
+    return render_template("/resetPass/resetPassword.html")
+
+@app.route("/senReset", methods=['GET','POST'])
+def resetPost():
+    print("estamos restableciendo contraseña")
+    
+
+@app.get("/messageEmail")
+def viewMessge():
+    return render_template("/confirEmail/confimaEmail.html")
+
 @app.route("/login", methods=['GET','POST'])
 def loginUser():
     if request.method=='POST':
         email = request.form['email']
         clave = request.form['password']
         autenticado = userLogueo.userLogin(email,clave)  
-
         if autenticado == True:
             session['loggedin'] = True
-            print(session)
             return redirect("/vista")
-        else: 
-            flash("Datos Erroneos. Confirme usuario y contraseña. Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.")
-            
+        else:
+            flash("Datos Erroneos. Confirme usuario y contraseña.")
+            flash("Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.")
             return redirect("/login")
-
     return render_template("/loginUser/login.html")
-        
-
-
-
 
 @app.get("/crear")
 def creaUsuario():
@@ -44,51 +61,27 @@ def creaUsuario():
 
 @app.post("/crear")
 def creaUsuarioPost():
-    nombre = request.form.get('nombre',)
+    nombre = request.form.get('nombre')
     correo = request.form.get('correo')
     password = request.form.get('password')
-    passwordEncrypted=generate_password_hash(password)
-    isValid=True
-    """ validacionModels.validate_password(nombre,correo,password) """
-    """ return redirect(url_for('index')) """
-    """ return redirect(url_for('creaUsuarioPost')) """
-    """ return render_template("crearUser.html",nombre=nombre, correo=correo) """
-    
-    if nombre == "":
-        isValid= False
-        flash("El nombre es obligatorio")
-        """ print("El nombre es obligatorio") """    
-    
-    if correo =="":
-        isValid=False
-        flash("El correo es obligatorio")
-        """ print("El correo es obligatorio") """
-    
-    if password =="":
-        isValid=False
-        flash("Los datos son incorrectos ")
-    
-    if 8 > len(password) :                       
-        flash("La contraseña debe tener minimo 8 caracteres")  
-        validacionModels.validate_password(password)                     
-        isValid=False
-    
-    if isValid == False:
-        """ print(nombre,correo,password) """
+    if not controllerUser.crearProductocontroller(nombre,correo,password):
         return render_template("/loginUser/crearUser.html",nombre=nombre,correo=correo)
-    
-    validacionModels.crearUser(nombre=nombre,correo=correo,password=passwordEncrypted)
-    return redirect(url_for('loginUser'))
+    return redirect(url_for('viewMessge'))
 
+@app.route("/valida_email/<token>")
+def validar_email(token):
+    if validacionModels.verificarToken(token):
+        return render_template("/confirEmail/emailValidado.html")
 
 @app.get("/vista")
 def vistaUsuario():
+    if not estaIniciado():
+        return redirect(url_for('loginUser'))
     return render_template("/vistaUser/viewUser.html")
 
 @app.route("/logout")
 def logout():
     session.pop('loggedin', None)
     return redirect(url_for('loginUser'))
-
 
 app.run(debug=True)
