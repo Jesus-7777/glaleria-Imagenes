@@ -1,3 +1,4 @@
+from itertools import product
 from config.database import db
 class UsuarioModel():
     def crearUser(serlf,usuario,correo,claveEncritada):
@@ -23,3 +24,13 @@ def createUser(name,email,claveEncritada):
         claveEncritada,
     ))
     cursor.close()
+    
+def traerID(email):
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM usuario WHERE correo='"+email+"'")
+    produc = cursor.fetchall()
+    cursor.close()
+    if produc !=None:
+        for iduser in produc:
+            idUs=iduser["id"]
+            return idUs

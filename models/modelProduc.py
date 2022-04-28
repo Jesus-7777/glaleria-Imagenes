@@ -2,7 +2,7 @@ from config.database import db
 
 def crearProducto(nombre, imagen):
     cursor = db.cursor()
-    cursor.execute("INSERT INTO producto(nombre,imagen) values(%s,%s)",(
+    cursor.execute("INSERT INTO producto(nombrepro,imagen) values(%s,%s)",(
         nombre,
         imagen,
     ))

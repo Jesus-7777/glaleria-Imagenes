@@ -3,7 +3,7 @@ from flask import Flask, render_template,request,redirect, url_for, flash, sessi
 from models import userLogueo
 from controllers import controllerUser,mostrarImagenController
 from models import validacionModels
-from models import modelProduc
+from models import modelUser
 
 
 
@@ -44,7 +44,6 @@ def resetPassPost():
     else:
         flash("Ocurrio un error vuelva a enviar el correo 📧","error")
         return redirect(url_for('viewreset'))
-    
 
 @app.get("/messageEmail")
 def viewMessge():
@@ -55,11 +54,12 @@ def loginUser():
     if request.method=='POST':
         email = request.form['email']
         clave = request.form['password']
-        print(clave)
         autenticado = userLogueo.userLogin(email,clave)  
+        idEmal=modelUser.traerID(email)
         if autenticado == True:
             session['loggedin'] = True
             session['email']=email
+            session['user_id']=idEmal
             return redirect("/vista")
         else:
             flash("Datos Erroneos. Confirme usuario y contraseña. Debe contener 8 o mas caracteres, MAYUSCULAS, minusculas, números y caracteres especiales.","error")
@@ -93,6 +93,9 @@ def mostrarArchivo():
 def subirArchivoPost():
     nombre = request.form['nombre']
     imagen = request.files['image']
+    idUser= session['user_id']
+    print(idUser)
+    print(imagen)
     if controllerUser.subir(nombre,imagen):
         flash("El archivo se agrego correctamente ✅","exito")
     return render_template("/productos/crearArchivo.html")

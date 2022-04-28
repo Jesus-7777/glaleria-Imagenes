@@ -28,28 +28,29 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Inicio</a>
               </li>
-              
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
+            {% if 'loggedin' in session %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{{url_for('subirArchivoPost')}}"> Subir un archivo </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{{url_for('logout')}}">Cerrar sesión </a>
+                </li>
+              
+            {% else %}
               <li class="nav-item">
                 <a class="nav-link active" href="/crear">Registrarse </a>
               </li>
-
               <li class="nav-item">
                 <a class="nav-link active" href="/login">Iniciar sesión </a>
               </li>
-
-              <li class="nav-item">
-                <a class="nav-link active" href="{{url_for('logout')}}">Cerrar sesión </a>
-              </li>
+            {% endif %}
             </ul>
           </div>
         </div>
       </nav>
-    {%endblock%}
-
-
-
+    {%endblock%}  
     {%block contenido%}
     
     {%endblock%}

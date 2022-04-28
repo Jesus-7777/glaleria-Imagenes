@@ -3,86 +3,29 @@
     Mi espacio
 {%endblock%}
 
-
-
-{%block navbar%}
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"> <B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;) TUENTI</B> </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-          </li>
-          
-        </ul>
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('subirArchivoPost')}}"> Subir un archivo </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('logout')}}">Cerrar sesión </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-
-
-{%endblock navbar%}
-
-
-
 {%block contenido%}
 <br><h1><center>Mis imagenes </center> </h1><br><br>
- 
     <!-- <h3>
-       Carga ahora tus archivos, solo debes dar clic aqui abajo!
+      Carga ahora tus archivos, solo debes dar clic aqui abajo!
     </h3><br>
       
     <input type="file" id="myFile" /> <br /><br />
       
     <input type="submit" value="Subir" /><br><br> -->
-
-         <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>IMAGEN</th>
-                <th>EDITAR</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for producto in imagen %}
-                <tr>
-                    <td>{{ producto[0] }}</td>
-                    <td>{{ producto[7] }}</td>
-                    <td>
-                      <img style="width: 5%" src="{{ producto[8] }}">
-                        
-                    </td>
-                    <td>{{ producto[7] }}</td>
-                </tr>
-                {% endfor %}
-            
-            </tbody>
-        </table> 
-
-                <!-- Gallery -->
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                    <img
-                      src=""
-                      class="w-100 shadow-1-strong rounded mb-4"
-                      alt="Boat on Calm Water"
-                    />
-                  </div>
+            {% for producto in imagen %}
+            <!-- Gallery -->
+            <div class="row">
+                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                  <img
+                  style="width: 5%"
+                  src="{{ producto[0] }}"
+                  class="w-100 shadow-1-strong rounded mb-4"
+                  alt="Boat on Calm Water"
+                  />
                 </div>
-                <!-- Gallery -->
+                <div>{{ producto[2] }}</div>
+                <div>{{ producto[1] }}</div>
+              </div>
+              <!-- Gallery -->
+            {% endfor %}
 {%endblock%}
