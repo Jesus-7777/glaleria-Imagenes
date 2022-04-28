@@ -10,8 +10,12 @@ def crearProducto(nombre, imagen):
     
 def misProductos(idUser):
     cursor = db.cursor(dictionary=True)
-    cursor.execute('SELECT imagenes, usuario.nombre FROM producto, usuario WHERE usuario.id=%s',(idUser))
+    cursor.execute("SELECT imagen, usuario.nombre FROM producto, usuario WHERE producto.idUsuario="+str(idUser)+"")
     productos = cursor.fetchall()
     cursor.close()
-    print(productos)
-    return "esto es real hijo"
+    if productos != None:
+            for datoProduc in productos:
+                print(datoProduc)
+                print(datoProduc["imagen"])
+                print(datoProduc["nombre"])
+                return datoProduc

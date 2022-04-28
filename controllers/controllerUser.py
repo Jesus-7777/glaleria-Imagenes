@@ -101,6 +101,6 @@ def subir(nombre,imagen):
 
 def pasarUser(iduser):
     #datoName=userLogueo.userName(correo)
-    print(int(iduser))
-    modelProduc.misProductos(int(iduser))
+    """ print(int(iduser))
+    modelProduc.misProductos(int(iduser)) """
     return

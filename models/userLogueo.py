@@ -12,19 +12,16 @@ def userLogin(email,clave):
         cursor.execute("SELECT * FROM usuario where correo = %s",(email,))
         datos = cursor.fetchall()
         cursor= close()
+        print(clave)
         if datos != None:
             for dato in datos:
-                print(dato["id"])
-                print(dato["correo"])
-                contravalid = check_password_hash(dato[3],clave)
+                contravalid = check_password_hash(dato["password"],clave)
                 print(contravalid)
-                print(clave)
                 if contravalid: 
                     print('Enviado Correctamente')
-                    """ base=datos[0]
-                    session['id_nombre']=base """
+                    base =dato["id"]
                     #controllerUser.pasarUser(base)
-                    #return contravalid
+                    #modelProduc.misProductos(base)
                 else:
                     print('Error No se envio')
                 return contravalid
