@@ -49,32 +49,35 @@
       
     <input type="submit" value="Subir" /><br><br> -->
 
-         <table class="table">
+         <div class="container">
+          <table class="table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>NOMBRE</th>
                 <th>IMAGEN</th>
-                <th>EDITAR</th>
+                <th>ACCIÓN</th>
               </tr>
             </thead>
             <tbody>
                 {% for producto in imagen %}
                 <tr>
                     <td>{{ producto[0] }}</td>
-                    <td>{{ producto[7] }}</td>
+                    <td>{{ producto[1] }}</td>
                     <td>
-                      <img style="width: 5%" src="{{ producto[8] }}">
-                        
+                      <img style="width: 5%" src="{{ producto[2] }}">
                     </td>
-                    <td>{{ producto[7] }}</td>
+                    <td> <a href="#" class="navbar-brand"> Editar </a> <a href="{{url_for('delete',id=producto[0])}}" class="navbar-brand" style="color: brown;"> Eliminar </a>  </td>
                 </tr>
+                
+
                 {% endfor %}
             
             </tbody>
         </table> 
+         </div>
 
-                <!-- Gallery -->
+                <!-- Gallery 
                 <div class="row">
                   <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                     <img
@@ -84,5 +87,5 @@
                     />
                   </div>
                 </div>
-                <!-- Gallery -->
+                 Gallery -->
 {%endblock%}
