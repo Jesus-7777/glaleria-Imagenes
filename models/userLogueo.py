@@ -4,6 +4,7 @@ from requests import session
 from config.database import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from controllers import controllerUser
+from models import modelProduc
 
 
 def userLogin(email,clave):

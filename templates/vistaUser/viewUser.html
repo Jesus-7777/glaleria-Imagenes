@@ -49,29 +49,28 @@
               </tr>
             </thead>
             <tbody>
-                {% for producto in productos %}
-                <tr>
-                    <td>{{ producto['id'] }}</td>
-                    <td>{{ producto['nombre'] }}</td>
-                    <td>
-                        {% if producto['imagen']: %}
-                            <img src="{{ producto['imagen'] }}">
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            
+              {% for producto in productos %}
+              <tr>
+                  <td>{{ producto[1]}}</td>
+                  
+                  <td>
+                    {% if producto[0]: %}
+                          <img src=".{{ producto[0] }}">
+                          {% endif %}
+                        </td>
+                      </tr>
+                    <!--  Gallery 
+                      <div class="row">
+                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                          <img
+                            src="{{ producto[2] }}"
+                            class="w-100 shadow-1-strong rounded mb-4"
+                            alt="Boat on Calm Water"
+                          />
+                        </div>
+                      </div>
+                      Gallery --> 
+              {% endfor %}
             </tbody>
         </table> 
-                <!-- Gallery -->
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                    <img
-                      src=""
-                      class="w-100 shadow-1-strong rounded mb-4"
-                      alt="Boat on Calm Water"
-                    />
-                  </div>
-                </div>
-                <!-- Gallery -->
 {%endblock%}

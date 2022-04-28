@@ -107,8 +107,10 @@ def validar_email(token):
 def vistaUsuario():
     if not estaIniciado():
         return redirect(url_for('loginUser'))
-    #productos = modelProduc.misProductos(),productos=productos
-    return render_template("/vistaUser/viewUser.html")
+    uno = 1
+    productos = modelProduc.misProductos(uno)
+    print(productos)
+    return render_template("/vistaUser/viewUser.html",productos=productos)
 
 @app.route("/logout")
 def logout():
