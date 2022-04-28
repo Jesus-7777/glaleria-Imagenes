@@ -12,20 +12,44 @@
     <input type="file" id="myFile" /> <br /><br />
       
     <input type="submit" value="Subir" /><br><br> -->
-            {% for producto in imagen %}
-            <!-- Gallery -->
-            <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                  <img
-                  style="width: 5%"
-                  src="{{ producto[0] }}"
-                  class="w-100 shadow-1-strong rounded mb-4"
-                  alt="Boat on Calm Water"
-                  />
+
+         <div class="container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>IMAGEN</th>
+                <th>ACCIÓN</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for producto in imagen %}
+                <tr>
+                    <td>{{ producto[0] }}</td>
+                    <td>{{ producto[1] }}</td>
+                    <td>
+                      <img style="width: 5%" src="{{ producto[2] }}">
+                    </td>
+                    <td> <a href="#" class="navbar-brand"> Editar </a> <a href="{{url_for('delete',id=producto[0])}}" class="navbar-brand" style="color: brown;"> Eliminar </a>  </td>
+                </tr>
+                
+
+                {% endfor %}
+            
+            </tbody>
+        </table> 
+         </div>
+
+                <!-- Gallery 
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                    <img
+                      src=""
+                      class="w-100 shadow-1-strong rounded mb-4"
+                      alt="Boat on Calm Water"
+                    />
+                  </div>
                 </div>
-                <div>{{ producto[2] }}</div>
-                <div>{{ producto[1] }}</div>
-              </div>
-              <!-- Gallery -->
-            {% endfor %}
+                 Gallery -->
 {%endblock%}

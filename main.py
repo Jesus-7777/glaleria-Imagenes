@@ -1,7 +1,7 @@
 from pyexpat import model
 from flask import Flask, render_template,request,redirect, url_for, flash, session
 from models import userLogueo
-from controllers import controllerUser,mostrarImagenController
+from controllers import controllerUser,mostrarImagenController,deleteimagenController
 from models import validacionModels
 from models import modelUser
 
@@ -121,5 +121,10 @@ def vistaUsuario():
 def logout():
     session.pop('loggedin', None)
     return redirect(url_for('loginUser'))
+
+@app.route("/deleteimg/<id>")
+def delete(id):
+    deleteimagenController.deleteimagen(id)
+    return redirect(url_for('vistaUsuario'))
 
 app.run(debug=True)
