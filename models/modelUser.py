@@ -6,7 +6,7 @@ class UsuarioModel():
             usuario,
             correo,
             claveEncritada,
-            ))       
+            ))    
         cursor.close()  
     def validarUser(self,usuario):
         cursor =db.cursor()

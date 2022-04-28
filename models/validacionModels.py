@@ -1,6 +1,6 @@
 from fileinput import close
 from flask import copy_current_request_context
-from werkzeug.security import check_password_hash,generate_password_hash
+from werkzeug.security import generate_password_hash
 from config.database import db
 from models import validacionEmail
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
@@ -11,6 +11,7 @@ s=URLSafeTimedSerializer('Secreto78SDDNCJSHadqwrweczc')
 sK=URLSafeTimedSerializer('kdfjlahdjknvaksjdbvfgdgagfgddgfdafag64fg6asd4f56as4d6f54s65df4ga')
 
 import threading
+
 
 cursor=db.cursor(dictionary=True)
 def correoExis(correo):
@@ -62,4 +63,12 @@ def isertToken(correo):
     cursor.execute("UPDATE usuario SET token=%s WHERE correo=%s",(tokenPass,correo))
     cursor.close()
     validacionEmail.sendPassReset(correo,tokenPass)
+    return True
+
+
+def cambioPss(token,password):
+    paswordSh=generate_password_hash(password)
+    cursor=db.cursor()
+    cursor.execute("UPDATE usuario SET password=%s WHERE token=%s",(paswordSh,token))
+    cursor.close()
     return True
