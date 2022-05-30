@@ -92,15 +92,9 @@ class Authentication(object):
         else:
             pass
 
-def subir(nombre,imagen):
+def subir(idUser,nombre,imagen):
     imagen.save('./static/image/' + imagen.filename)
     
-    modelProduc.crearProducto(nombre=nombre,
+    modelProduc.crearProducto(idUser=idUser, nombre=nombre,
                     imagen='/static/image/' + imagen.filename)
     return True
-
-def pasarUser(iduser):
-    #datoName=userLogueo.userName(correo)
-    """ print(int(iduser))
-    modelProduc.misProductos(int(iduser)) """
-    return

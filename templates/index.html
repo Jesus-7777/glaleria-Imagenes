@@ -8,14 +8,17 @@
 
 
 {%block contenido%}
-    <div class="container">
-        <div class="row">
+<div class="container mt-5" >
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for imagenes in produc %}
             <div class="col">
-                <h2> Página Principal </h2>
-
+                <figure class="figure">
+                    <img src="{{imagenes[3]}}" class="card-img-top" style="width: 100%;" alt="{{imagenes[2]}}">
+                    <figcaption class="figure-tittle text-center">nombre: {{imagenes[2]}}</figcaption>
+                </figure>
             </div>
-        </div>
-
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
 
