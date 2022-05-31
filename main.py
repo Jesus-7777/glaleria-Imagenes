@@ -1,8 +1,8 @@
 from pyexpat import model
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from models import userLogueo
-from controllers import controllerUser, mostrarImagenController, deleteimagenController,imageController
-from models import validacionModels
+from controllers import controllerUser, mostrarImagenController, deleteimagenController,imageController, controllerMusic
+from models import validacionModels, verMusic
 from models import modelUser
 
 
@@ -150,10 +150,20 @@ def cambiarStatus(id):
 
 @app.get("/radio")
 def vistaRadio():
-    return render_template("./radio/radioIndex.html")
+    resultMusic=verMusic.getMusic()
+    print(resultMusic)
+    return render_template("./radio/radioIndex.html",resultMusic=resultMusic)
 
-@app.get("/misCanciones")
-def misCanciones():
-    return render_template("./radio/misCanciones.html")
+@app.get("/subirMusic")
+def subirMusic():
+    return render_template("./radio/subirCancion.html")
+
+@app.route("/subirMusic", methods=['GET', 'POST'])
+def subirMusicPost():
+    nombre = request.form['nombre']
+    cancion = request.files['cancion']
+    if controllerMusic.subir(nombre, cancion):
+        flash("El archivo se agrego correctamente ✅", "exito")
+    return render_template("./radio/radioIndex.html")
 
 app.run(debug=True)

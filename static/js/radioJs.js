@@ -1,21 +1,6 @@
-/* const seekbar = document.querySelector('.ui-slider');
-const seekbarMax = seekbar.max;
-
-setInterval(() => {
-	let position = (parseInt(seekbar.value));
-	
-	if(position < seekbarMax) {
-		seekbar.value = parseInt(position) + 1;
-	}
-	else {
-		seekbar.value = 0;
-	}
-}, 1000); */
-
 //Array con el listado de canciones a mostrar en el reprodutor
-const canciones = [
-	
-	]
+const canciones = [src('/static/audio')];
+console.log(canciones)
 	var indiceActual = new Array(1)
 	//Funcion para crear mediante javascript el listado de canciones
 	function crearPlayList(){

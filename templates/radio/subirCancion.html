@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{%block titulo%}
+    miscanciones
+{% endblock %}
+
+
+{%block contenido%}
+<div class="container py-5 col-10 col-sm-10 col-md-8 col-lg-5 col-xl-3">
+    <div class="card">
+        <div class="card-header bg-dark text-white text-center">
+            <i class='fa fa-user'>&nbsp;</i>Subir Cancion
+        </div>
+        
+        <div class="card-body" style="padding-top: 20px; ">
+                        <form action="{{url_for('subirMusic')}}" enctype="multipart/form-data" method="POST">
+                            <div>
+                                <input type="text"  name="nombre" class="form-control" placeholder="Ingrese una nombre" tabindex="1" value="{{ nombre }}"  autofocus required>
+                            </div>
+                            <br>
+                            <div>
+                                <input type="file" class="form-control my-3" accept="mp3" required name="cancion">
+                            </div>
+                            
+                                <button type="submit" class="btn btn-outline-danger" tabindex="2" style="width: 100%;">Subir archivo</button>
+                            
+                        </form>
+                        <p>
+                            <!-- Formulario de crear ususario -->
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                            <ul class=flashes>
+                                            {% for category, message in messages %}
+                                                {%if category=="exito"%}
+                                                    <div class="alert alert-success" role="alert">
+                                                        <div class="{{ category }}">{{ message }}</div>
+                                                    </div>
+                                                {%endif%}
+                                                {%if category=="error"%}
+                                                <div class="alert alert-danger {{ category }}">
+                                                    {{ message }}
+                                                </div>
+                                                {%endif%}
+                                            {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    {% endwith %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
