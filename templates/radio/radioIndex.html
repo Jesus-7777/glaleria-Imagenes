@@ -43,12 +43,9 @@
         </div>
         <div id="playList">
             {% for music in resultMusic %}
-            <ol>
-                <li>{{music['cancion']}}</li>
-            </ol>
+                <li id="listadoMusica">{{music['descripcion']}}</li>
             {%endfor%}
         </div>
-        
     </div>
 </div>
 {% endblock %}

@@ -1,9 +1,7 @@
 from pyexpat import model
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from models import userLogueo
 from controllers import controllerUser, mostrarImagenController, deleteimagenController,imageController, controllerMusic
-from models import validacionModels, verMusic
-from models import modelUser
+from models import validacionModels, verMusic, modelUser, userLogueo, modelcontrolador
 
 
 app = Flask(__name__)
@@ -165,5 +163,25 @@ def subirMusicPost():
     if controllerMusic.subir(nombre, cancion):
         flash("El archivo se agrego correctamente ✅", "exito")
     return render_template("./radio/radioIndex.html")
+
+"""Parte del acortador"""
+
+@app.get("/acortador")
+def vistaAcortador():
+    productos=modelcontrolador.ObtenerAcortador()
+    return render_template("./vistaUser/acortador.html",productos=productos)
+
+@app.route("/crearAcortador",methods=["GET","POST"])
+def crearUrlPost():
+    if request.method=='POST':
+        exten_url=request.form.get('exten')
+        corto=modelcontrolador.crearUrl(exten_url)
+        return render_template("productos/crearAcortador.html",corto=corto)
+    #return render_template("index.html",corto=corto)
+
+@app.get('/short/<urlId>')
+def traerUrl(urlId):
+    producto=modelcontrolador.traerUrlCorto(urlId)
+    return redirect(producto)
 
 app.run(debug=True)

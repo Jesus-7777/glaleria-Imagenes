@@ -1,5 +1,7 @@
 //Array con el listado de canciones a mostrar en el reprodutor
-const canciones = [src('/static/audio')];
+const canciones = [
+	
+];
 console.log(canciones)
 	var indiceActual = new Array(1)
 	//Funcion para crear mediante javascript el listado de canciones
@@ -26,7 +28,6 @@ console.log(canciones)
 		player.play()
 		indiceActual[0]= e.target.id
 		classIconPlay();
-	
 	}
 	//Funcion para cambiar el icono del reprodutor
 	function classIconPlay(){
@@ -97,10 +98,10 @@ console.log(canciones)
 	//Funcion para remover todas las clases css activas
 	function removeActive(){
 		var elems = document.querySelectorAll(".active");
-		  [].forEach.call(elems, function(el) {
+		[].forEach.call(elems, function(el) {
 			el.classList.remove("active");
-		  });
-		  return elems
+		});
+		return elems
 	}
 	//Funcion para mostrar el nombre del arhivo actual en reproduccion
 	function reproduccionActual(texto){
@@ -109,7 +110,7 @@ console.log(canciones)
 	//Funcion para cargar las canciones en el reproductor
 	function loadMusic(ruta){
 		var source = document.getElementById('source')
-		var folder ="audio";//Carpeta donde tenemos almancenada la musica
+		var folder ="static/audio";//Carpeta donde tenemos almancenada la musica
 		source.src= folder+"/"+ruta
 		var index= indiceActual[0]= canciones.indexOf(ruta)
 		removeActive()
@@ -130,9 +131,9 @@ console.log(canciones)
 	}
 	//Funcion para cambiar el icono play o pause
 	function toggleIcon() {
-	   var element = document.getElementById("iconPlay");
-	   element.classList.toggle("fa-pause-circle");
-	   element.classList.toggle("fa-play-circle");
+	    var element = document.getElementById("iconPlay");
+	    element.classList.toggle("fa-pause-circle");
+	    element.classList.toggle("fa-play-circle");
 	}
 	//Funcion para que al dar click sobre la barra de progeso se permita adelantar
 	progress.addEventListener('click', adelantar);

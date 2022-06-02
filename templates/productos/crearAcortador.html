@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+{%block titulo%}
+        Reset
+{%endblock%}
+
+{%block contenido%}
+<center><br>
+    <div class="container">
+        <div class="row">
+            <center><img src="https://cdn.onurix.com/web/assets/img/logo512.png" width="130" height="130"></center>
+            <h2><font COLOR="teal"> Tu URL más Corta y Funcional </font></h2>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form method="post" action="/create">
+                    <div>
+                    <!--<label for="enlace">Dirección Url</label https://flask-urls.herokuapp.com/short/{{corto}}>-->
+                    <input type="text" class="form-control" value="http://127.0.0.1:5000/short/{{corto}}">
+                </div>
+                </form>
+                <div>
+                    <form action="/" method="get">
+                        <br><button type="submit" class="btn btn-success">Volver al Acortador</button>
+                    </form>
+                        <!--<div><button type="submit" class="btn btn-success">copiar</button></div>-->
+                </div><br><br><br>
+            </div>
+
+            <footer class="bd-footer bg-light py-4 ">
+                <div class="container">
+                  <div class="row justify-content-center text-center">
+        
+                    <div class="col-6 col-lg-3 ">
+                        <img src="https://sigedin.itp.edu.co/sigeitp/sigedin_excel/imagenes/Logo_ITP%20(1).png" width="140" height="140">
+                    </div>
+        
+                    <div class="col-6 col-lg-3 offset-lg-1">
+                        <h3 class="align-items-center link-dark text-decoration-none">
+                            <h3>Universidad</h3>
+                        </h3>
+                        <p class="align-items-center link-dark text-decoration-none" >
+                            Facultad de Ciencias <br>
+                            Ingeniería de Sistemas <br>
+                            Instituto Tecnológico del Putumayo <br>
+                        </p>
+                    </div>
+        
+                    <div class="col-6 col-lg-3 offset-lg-1">
+                        <p class="align-items-center  ">
+                            <h3>Desarrolladores</h3>
+                        </p>
+                        <p class="align-items-center link-dark ">
+                            Duban Bladimir Ruales Ortega <br>
+                            Jesus Francisco Narvaez Díaz <br>
+                        </p>
+                    </div>
+        
+                  </div>
+                </div>
+            </footer>
+
+
+
+
+        </div>
+    </div>
+    </center>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+{%endblock%}
