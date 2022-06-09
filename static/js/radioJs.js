@@ -1,6 +1,7 @@
+
 //Array con el listado de canciones a mostrar en el reprodutor
 const canciones = [
-	
+	"Ódiame copia.mp3"
 ];
 console.log(canciones)
 	var indiceActual = new Array(1)
